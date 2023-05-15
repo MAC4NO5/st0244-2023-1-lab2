@@ -1,3 +1,5 @@
+module PRF (Nat(Zero,Succ),addR,multiR,idP,predecessor,pow) where
+
 data Nat = Zero | Succ Nat
 
 instance Show Nat where
