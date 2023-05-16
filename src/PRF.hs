@@ -2,10 +2,6 @@ module PRF where
 import GHC.Natural (Natural)
 data Nat = Zero | Succ Nat
 
-instance Show Nat where
-    show Zero = "Zero"
-    show (Succ m) = "Succ("++ show m ++")"
-
 -- Is a type of recursor used in all natural numbers
 recNat :: a -> (Nat -> a -> a) -> Nat -> a
 recNat a _ Zero = a
