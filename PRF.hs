@@ -1,6 +1,11 @@
-module PRF (Nat(Zero,Succ),addR,multiR,idP,predecessor,pow,naturalToNat, natToNatural) where
+module PRF where
 import GHC.Natural (Natural)
 data Nat = Zero | Succ Nat
+
+
+instance Show Nat where
+    show Zero = "Zero"
+    show (Succ m) = "Succ("++ show m ++")"
 
 -- Is a type of recursor used in all natural numbers
 recNat :: a -> (Nat -> a -> a) -> Nat -> a
@@ -16,17 +21,16 @@ multiR :: Nat -> Nat -> Nat
 multiR m n = recNat Zero (\_ y -> addR m y) n
 
 --Primitive recursive function to get the identity of a number
-idP :: Nat -> Nat
-idP n = recNat n (\_ y -> y) Zero
+idR :: Nat -> Nat
+idR n = recNat n (\_ y -> y) Zero
 
 -- Primitive recursive function that give the predeccesor of a number
 predecessor :: Nat -> Nat
-predecessor Zero = Zero
-predecessor (Succ m) = recNat m (\_ y -> y) Zero
+predecessor m = recNat Zero(\x _ -> x) m
 
---Primitive recursive function to multiply same number a X certain number times
-pow :: Nat -> Nat -> Nat
-pow m n= recNat (Succ Zero) (\_ y -> multiR m y) n
+-- Primitive recursive function that give the double Succ of a number
+doubleSuccR :: Nat -> Nat
+doubleSuccR m = recNat m(\_ y -> (Succ(Succ y)))(Succ Zero)
 
 --Method to convert a Nat to Natural
 natToNatural :: Nat -> Natural

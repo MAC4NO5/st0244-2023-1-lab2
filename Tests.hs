@@ -20,16 +20,30 @@ prop_multiR m n = natToNatural(multiR m' n') == m * n
     n' = naturalToNat n
 
 --Properties of add function to use tests of QuickCheck
-prop_idP :: Natural -> Bool
-prop_idP n = natToNatural(idP n') == n
+prop_idR :: Natural -> Bool
+prop_idR n = natToNatural(idR n') == n
     where
     n' :: Nat
     n' = naturalToNat n
 
+prop_predeccesor :: Natural -> Bool
+prop_predeccesor n
+    | n == 0 = True
+    | otherwise = natToNatural(predecessor n') == n - 1
+    where
+    n' :: Nat
+    n' = naturalToNat n
 
+prop_doubleSuccR :: Natural -> Bool
+prop_doubleSuccR n = natToNatural(doubleSuccR n') == n + 2
+    where
+    n' :: Nat
+    n' = naturalToNat n
     --ghc -o lab2 -package quickcheck-instances Tests.hs
 main :: IO ()
 main = do
     quickCheck prop_addR
     quickCheck prop_multiR
-    quickCheck prop_idP
+    quickCheck prop_idR
+    quickCheck prop_predeccesor
+    quickCheck prop_doubleSuccR
